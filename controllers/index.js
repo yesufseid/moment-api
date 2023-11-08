@@ -16,7 +16,9 @@ const getallPost=asyncWarapper( async(req,res)=>{
   }
   const AllPosts = await prisma.post.findMany({
     where:{
-      status:"waiting",
+    //   status:{
+    //     not:"done"
+    //   },
       location:{
         lte:location,
       },
@@ -47,11 +49,12 @@ const creatPost=asyncWarapper( async(req,res,next)=>{
       });
   }
   
-  const {location,quate}=req.body
+  const {location,quate,authorId}=req.body
   const post=await prisma.post.create({
     data:{
       location:location,
-      quate:quate
+      quate:quate,
+      authorId:authorId
     }
   })
   if(!post){

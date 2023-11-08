@@ -22,7 +22,7 @@ model post {
   location Float
   quate    String?
   status    String @default("waiting")
-   author   user      @relation(fields: [authorId], references: [id])
+  author   user      @relation(fields: [authorId], references: [id])
   authorId String    @db.ObjectId
 }
 
