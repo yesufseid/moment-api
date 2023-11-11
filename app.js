@@ -10,7 +10,7 @@ var cors = require('cors')
 
 //middlware
 app.use(experss.json({limit: '25mb'}));
-// app.use(bodyparser.urlencoded({extended:true}))
+app.use(bodyparser.urlencoded({extended:true}))
 app.use(cors())
 
 
