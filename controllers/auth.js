@@ -53,15 +53,13 @@ const signin=asyncWarapper( async(req,res,next)=>{
 
 
 
-
-
   const signup=asyncWarapper( async(req,res,next)=>{
-    const user=await prisma.user.create({
+     const user=await prisma.user.create({
       data:{
         firstname:req.body.firstname,
         lastname:req.body.lastname,
         email:req.body.email,
-        password:bcrypt.hashSync(req.body.password, 8)
+        password:bcrypt.hashSync(req.body.password, 10)
       }
     })
     if (!user){
