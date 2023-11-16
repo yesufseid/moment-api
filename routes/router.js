@@ -16,6 +16,7 @@ const {getallPost,
 const verifyToken = require('../middleware/authJWT')
 
 
+
 router.route("/login").post(signin)
 router.route("/register").post(signup)
 router.route("/allposts/:Id").get(verifyToken,getallPost)

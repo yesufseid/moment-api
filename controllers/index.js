@@ -16,9 +16,6 @@ const getallPost=asyncWarapper( async(req,res)=>{
   }
   const AllPosts = await prisma.post.findMany({
     where:{
-    //   status:{
-    //     not:"done"
-    //   },
       location:{
         lte:location,
       },
@@ -28,6 +25,9 @@ const getallPost=asyncWarapper( async(req,res)=>{
         location:'asc',
       },
     ],
+    include: {
+      author: true,
+    },
   })
   if(!AllPosts){
     const error={
@@ -139,6 +139,7 @@ const deletPost=asyncWarapper( async(req,res,next)=>{
 //login route
 const getuserPost=asyncWarapper( async(req,res)=>{
   const id=req.params.Id
+  console.log(id);
   if (!req.user) {
     res.status(403)
       .send({
@@ -150,13 +151,14 @@ const getuserPost=asyncWarapper( async(req,res)=>{
       id:id
     },
     include: {
-      posts: true,
+      post:{
+        orderBy:{
+          id:"desc"
+         }
+      }
+     
     },
-    orderBy: [
-      {
-        id:'desc',
-      },
-    ],
+   
   })
   if(!AllPosts){
     const error={
@@ -178,11 +180,15 @@ const creatProfile=asyncWarapper( async(req,res,next)=>{
         message: "Invalid JWT token"
       });
   }
-  const {profile,id}=req.body
+  const {phone,Telegram,Facebook,Instagram,X,Website,id}=req.body
+  console.log(id+"ddd");
+  var json = [
+    phone,Telegram,Facebook,Instagram,X,Website,
+  ]
   const post=await prisma.profile.create({
     data:{
-      authorId: id,
-      profile:profile
+      authorId:id,
+      user:json
     }
   })
   if(!post){
