@@ -6,41 +6,6 @@ const asyncWarapper=require("../middleware/async")
 
 
 //prisma.post
-const getallPost=asyncWarapper( async(req,res)=>{
-  const location=parseFloat(req.query.location)
-  if (!req.user) {
-    res.status(403)
-      .send({
-        message: "Invalid JWT token"
-      });
-  }
-  const AllPosts = await prisma.post.findMany({
-    where:{
-      location:{
-        lte:location,
-      },
-    },
-    orderBy: [
-      {
-        location:'asc',
-      },
-    ],
-    include: {
-      author: true,
-    },
-  })
-  if(!AllPosts){
-    const error={
-      message:`file not found in this ${id} id`,
-      status:404
-    }
-    res.status(404).json({msg:error})
-  }
-    
-  console.log("1");
-  res.status(200).json({AllPosts})
-});
-
 const creatPost=asyncWarapper( async(req,res,next)=>{
   if (!req.user) {
     res.status(403)
@@ -237,7 +202,7 @@ const getProfile=asyncWarapper( async(req,res,next)=>{
    res.status(200).json(post)
 });
 
-module.exports={getallPost,
+module.exports={
                  updatePostHistory,
                  deletPost,
                  updatePost,
