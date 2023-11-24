@@ -65,32 +65,13 @@ const deletPost=asyncWarapper( async(req,res,next)=>{
             id:"desc"
            },
            include:{
-            activitiy:true
+            activitiy:true,
+            accesse:true
            }
         }
       },
      
     })
-    // const AllPosts = await prisma.activitiy.findMany({
-    //   where:{
-    //     userId:id
-    //   },
-    //   include:{
-    //     author:true
-    //   }
-    // }
-    // )
-
-
-    // const activitiy = await prisma.activitiy.findMany({
-    //     where:{
-    //       userId:id
-    //     },
-    //     select:{
-    //       authorId:true
-    //     }
-    //   })
-
     if(!userPosts){
       const error={
         message:`file not found in this ${id} id`,
@@ -98,11 +79,6 @@ const deletPost=asyncWarapper( async(req,res,next)=>{
       }
       res.status(404).json({msg:error})
     }
-      
-  //   const x=activitiy.map((c)=>c.authorId)
-  //   const p=AllPosts.filter((p)=>x.includes(p.id))
-  //  const post=p.concat(userPosts.post)
-
     res.status(200).json({userPosts})
   });
 

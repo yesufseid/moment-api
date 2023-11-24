@@ -21,8 +21,8 @@ const getPanding=asyncWarapper( async(req,res)=>{
       include:{
         author:{
           include:{
-            accesse:true,
-            author:true
+            author:true,
+            accesse:true
           }
         }
       }
@@ -39,7 +39,7 @@ const getPanding=asyncWarapper( async(req,res)=>{
   //   const p=x.filter((p)=>p.authorId===id)
   //    const c=activitiy.map((p)=>p.author)
   //  const post=c.concat(p)
-   console.log(activitiy);
+
     res.status(200).json({activitiy})
   });
 
