@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 const asyncWarapper=require("../middleware/async")
 
 const createProfileImg=asyncWarapper( async(req,res)=>{
-    const{uthorId,img}=req.body
+    const{authorId,img}=req.body
     console.log("hellow");
     if (!req.user) {
       res.status(403)
@@ -14,7 +14,7 @@ const createProfileImg=asyncWarapper( async(req,res)=>{
     }
     const profile = await prisma.images.create({
      data:{
-        authorId:uthorId,
+        authorId:authorId,
         img:img
      }
     })
@@ -42,7 +42,7 @@ const createProfileImg=asyncWarapper( async(req,res)=>{
     }
     const profile = await prisma.images.findMany({
      where:{
-        authorId:id
+        authorId:id,
      },
      take:-1
     })
@@ -53,7 +53,6 @@ const createProfileImg=asyncWarapper( async(req,res)=>{
       }
       res.status(404).json({msg:error})
     }
-  console.log(profile);
     res.status(200).json({profile})
   });
 
